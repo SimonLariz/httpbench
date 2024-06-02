@@ -1,25 +1,43 @@
-# httpbench
+<div align="center">
+  <h1>httpbench</h1>
+  <p>A powerful command-line tool for benchmarking HTTP endpoints.</p>
+</div>
 
-`httpbench` is a command-line tool for benchmarking HTTP endpoints. It allows you to measure the performance of your web applications and APIs by sending concurrent requests and analyzing the response times and throughput.
+[![Go Version](https://img.shields.io/badge/go-1.22.3-00ADD8?style=flat-square&logo=go)](https://golang.org)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/simonlariz/httpbench/blob/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/simonlariz/httpbench?style=flat-square)](https://goreportcard.com/report/github.com/simonlariz/httpbench)
+[![GitHub Stars](https://img.shields.io/github/stars/simonlariz/httpbench?style=flat-square&logo=github)](https://github.com/simonlariz/httpbench/stargazers)
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Example](#example)
+- [Customization](#customization)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Demo
+![httpbench Demo](img/demo.gif)
 
 ## Features
 
-- Send concurrent HTTP requests to a specified URL
-- Customize the number of requests, concurrency level, and timeout duration
-- Measure response times and calculate average, minimum, and maximum values
-- Calculate throughput (requests per second)
-- Display progress bar to track benchmarking progress
-- Generate colorful and formatted output for easy readability
+- 🚀 Send concurrent HTTP requests to a specified URL
+- ⚙️ Customize the number of requests, concurrency level, and timeout duration
+- 📊 Measure response times and calculate average, minimum, and maximum values
+- 📈 Calculate throughput (requests per second)
+- 🌈 Display progress bar to track benchmarking progress
+- 💅 Generate colorful and formatted output for easy readability
 
 ## Installation
 
-To install `httpbench`, make sure you have Go installed on your system. Then, run the following command:
+To install `httpbench`, make sure you have [Go](https://golang.org) installed on your system. Then, run the following command:
 
 ```bash
 go get github.com/simonlariz/httpbench
 ```
 
-## Usage 
+## Usage
 
 To start benchmarking an HTTP endpoint, run the following command:
 
@@ -27,16 +45,18 @@ To start benchmarking an HTTP endpoint, run the following command:
 httpbench -url "http://example.com/api" -n 1000 -c 10 -timeout 5s
 ```
 
-This command will send 1000 requests to `http://example.com/api` with a concurrency level of 10 and a timeout of 5 seconds.
+This command sends 1000 requests to `http://example.com/api` with a concurrency level of 10 and a timeout of 5 seconds. You can customize these values based on your requirements.
 
 - `-url`: The URL of the HTTP endpoint to benchmark
 - `-n`: The total number of requests to send
 - `-c`: The concurrency level (number of requests to send concurrently)
-- `-timeout`: The timeout duration for each request
+- `-timeout`: The duration to wait for a response from the server
 
-## Example Output
+For more information about the available options, run `httpbench -h`.
 
-''ADD EXAMPLE OUTPUT HERE''
+## Example 
+
+ADD EXAMPLE HERE
 
 ## Customization
 `httpbench` provides various customization options for the progress bar and output formatting. You can modify the following properties:
@@ -50,6 +70,13 @@ This command will send 1000 requests to `http://example.com/api` with a concurre
 - Progress bar refresh rate
 
 Refer to the source code and the `github.com/cheggaaa/pb` package documentation for more details on customization options.
+
+## Roadmap
+
+- [ ] Support for POST request with request bodies
+- [ ] Integration with popular monitoring tools (e.g., Prometheus, Grafana)
+- [ ] Web-based dashboard for monitoring and analyzing benchmark results
+- [ ] Support for custom headers and cookies
 
 ## Contributing
 
