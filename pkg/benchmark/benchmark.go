@@ -5,16 +5,17 @@
 package benchmark
 
 import (
-	"fmt"
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/SimonLariz/httpbench/pkg/metrics"
 )
 
-func Run(url string, numRequests, concurrency int, timeout time.Duration) {
+func Run(url string, numRequests, concurrency int, timeout time.Duration) *metrics.Metrics {
 	// Implement benchmarking logic
 	var wg sync.WaitGroup
-	var totalDuration time.Duration
+	m := metrics.NewMetrics(numRequests)
 
 	client := &http.Client{
 		Timeout: timeout,
@@ -28,7 +29,7 @@ func Run(url string, numRequests, concurrency int, timeout time.Duration) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			sendRequests(client, url, requestsPerGoRoutine)
+			sendRequests(client, url, requestsPerGoRoutine, m)
 		}()
 	}
 
@@ -36,29 +37,33 @@ func Run(url string, numRequests, concurrency int, timeout time.Duration) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			sendRequests(client, url, remainingRequests)
+			sendRequests(client, url, remainingRequests, m)
 		}()
 	}
 
 	wg.Wait()
 
-	totalDuration = time.Since(start)
+	totalDuration := time.Since(start)
+	m.SetTotalDuration(totalDuration)
 
-	fmt.Printf("Total requests: %d\n", numRequests)
-	fmt.Printf("Concurrency level: %d\n", concurrency)
-	fmt.Printf("Total duration: %v\n", totalDuration)
-
+	return m
 }
 
 // Function to send HTTP requests to the URL
-func sendRequests(client *http.Client, url string, count int) {
+func sendRequests(client *http.Client, url string, count int, m *metrics.Metrics) {
 	for i := 0; i < count; i++ {
+		start := time.Now()
 		resp, err := client.Get(url)
+		duration := time.Since(start)
+		m.AddRequestDuration(duration)
+
 		if err != nil {
-			fmt.Println("Error:", err)
+			// Uncomment the line below to print the error message
+			// fmt.Println("Error:", err)
+			m.AddFailedRequest()
 			continue
 		}
 		resp.Body.Close()
+		m.AddSuccessfulRequest()
 	}
-
 }

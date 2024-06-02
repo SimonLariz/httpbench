@@ -37,13 +37,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Print parsed values
-	fmt.Println("URL:", url)
-	fmt.Println("Requests:", numRequests)
-	fmt.Println("Concurrency:", concurrency)
-	fmt.Println("Timeout:", timeout)
-
 	// Call benchmarking function
-	benchmark.Run(url, numRequests, concurrency, timeout)
-
+	m := benchmark.Run(url, numRequests, concurrency, timeout)
+	// benchmark.Run(url, numRequests, concurrency, timeout)
+	fmt.Printf("Total requests: %d\n", m.TotalRequests)
+	fmt.Printf("Successful requests: %d\n", m.SuccessfulRequests)
+	fmt.Printf("Failed requests: %d\n", m.FailedRequests)
+	fmt.Printf("Average response time: %v\n", m.AverageResponseTime())
+	fmt.Printf("Throughput: %.2f req/s\n", m.RequestsPerSecond())
 }
