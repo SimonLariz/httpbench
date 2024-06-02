@@ -10,9 +10,10 @@ import (
 	"time"
 
 	"github.com/SimonLariz/httpbench/pkg/metrics"
+	"github.com/cheggaaa/pb/v3"
 )
 
-func Run(url string, numRequests, concurrency int, timeout time.Duration) *metrics.Metrics {
+func Run(url string, numRequests, concurrency int, timeout time.Duration, bar *pb.ProgressBar) *metrics.Metrics {
 	// Implement benchmarking logic
 	var wg sync.WaitGroup
 	m := metrics.NewMetrics(numRequests)
@@ -29,7 +30,7 @@ func Run(url string, numRequests, concurrency int, timeout time.Duration) *metri
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			sendRequests(client, url, requestsPerGoRoutine, m)
+			sendRequests(client, url, requestsPerGoRoutine, m, bar)
 		}()
 	}
 
@@ -37,7 +38,7 @@ func Run(url string, numRequests, concurrency int, timeout time.Duration) *metri
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			sendRequests(client, url, remainingRequests, m)
+			sendRequests(client, url, remainingRequests, m, bar)
 		}()
 	}
 
@@ -50,7 +51,7 @@ func Run(url string, numRequests, concurrency int, timeout time.Duration) *metri
 }
 
 // Function to send HTTP requests to the URL
-func sendRequests(client *http.Client, url string, count int, m *metrics.Metrics) {
+func sendRequests(client *http.Client, url string, count int, m *metrics.Metrics, bar *pb.ProgressBar) {
 	for i := 0; i < count; i++ {
 		start := time.Now()
 		resp, err := client.Get(url)
@@ -61,9 +62,10 @@ func sendRequests(client *http.Client, url string, count int, m *metrics.Metrics
 			// Uncomment the line below to print the error message
 			// fmt.Println("Error:", err)
 			m.AddFailedRequest()
-			continue
+		} else {
+			resp.Body.Close()
+			m.AddSuccessfulRequest()
 		}
-		resp.Body.Close()
-		m.AddSuccessfulRequest()
+		bar.Increment()
 	}
 }
