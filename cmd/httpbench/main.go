@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/SimonLariz/httpbench/pkg/benchmark"
 )
 
 var (
@@ -40,5 +42,8 @@ func main() {
 	fmt.Println("Requests:", numRequests)
 	fmt.Println("Concurrency:", concurrency)
 	fmt.Println("Timeout:", timeout)
+
+	// Call benchmarking function
+	benchmark.Run(url, numRequests, concurrency, timeout)
 
 }
