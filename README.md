@@ -86,6 +86,10 @@ For more information about the available options, run `httpbench -h`.
 
 Refer to the source code and the `github.com/cheggaaa/pb` package documentation for more details on customization options.
 
+## Important Note
+
+Please refrain from benchmarking, load testing, or performing any unauthorized tests on the live website or application without explicit permission from the project maintainers. Unauthorized testing can put unnecessary strain on the servers and may be considered a form of attack. If you wish to conduct performance tests or benchmarking, please contact us first to discuss the scope and obtain permission. Thank you for your understanding and cooperation.
+
 ## Roadmap
 
 - [ ] Support for POST request with request bodies
