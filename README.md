@@ -71,7 +71,7 @@ For more information about the available options, run `httpbench -h`.
 
 ## Example 
 
-ADD EXAMPLE HERE
+![httpbench Example](img/output.png)
 
 ## Customization
 `httpbench` provides various customization options for the progress bar and output formatting. You can modify the following properties:
