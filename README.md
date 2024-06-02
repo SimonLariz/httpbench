@@ -9,6 +9,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/simonlariz/httpbench?style=flat-square&logo=github)](https://github.com/simonlariz/httpbench/stargazers)
 
 ## Table of Contents
+- [Demo](#demo)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -35,6 +36,20 @@ To install `httpbench`, make sure you have [Go](https://golang.org) installed on
 
 ```bash
 go get github.com/simonlariz/httpbench
+```
+
+Or you can clone the repository and build the binary manually:
+
+```bash
+git clone https://github.com/SimonLariz/httpbench.git
+cd httpbench
+go build -o ./bin/httpbench cmd/httpbench/main.go
+``` 
+
+Then you can run the binary:
+
+```bash
+./bin/httpbench
 ```
 
 ## Usage
@@ -76,7 +91,6 @@ Refer to the source code and the `github.com/cheggaaa/pb` package documentation 
 - [ ] Support for POST request with request bodies
 - [ ] Integration with popular monitoring tools (e.g., Prometheus, Grafana)
 - [ ] Web-based dashboard for monitoring and analyzing benchmark results
-- [ ] Support for custom headers and cookies
 
 ## Contributing
 
